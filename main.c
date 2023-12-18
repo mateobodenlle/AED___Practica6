@@ -22,12 +22,9 @@ matriz B = {{11,17,8},
             {13,15,16}};
 
 //Implementación de funciones de Backtracking
-int criterio(int nivel, int s[N]) {
+int criterio(int nivel, int s[N], int usada[N]) {
     nPasosCriterio++;
-    for (int i = 0; i < nivel; i++)
-        if (s[nivel] == s[i]) return 0;
-    nNodos++;
-    return 1;
+    return usada[s[nivel]]==1;
 }
 
 int masHermanos(int nivel, int s[N]) {
@@ -35,16 +32,20 @@ int masHermanos(int nivel, int s[N]) {
     return s[nivel]<(N-1);
 }
 
-int retroceder(int *nivel, int s[N],int* bact){
+int retroceder(int *nivel, int s[N],int* bact,int usada[N]){
     nPasosRetroceder++;
     (*bact)-=B[*nivel][s[*nivel]];
+    usada[s[*nivel]]--;
     s[*nivel]=valorDefecto;
     (*nivel)--;
 }
 
-int generar(int nivel, int s[N],int* bact) {
+int generar(int nivel, int s[N],int* bact, int usada[N]) {
+    if (s[nivel]!=-1)
+        usada[s[nivel]]--;
     nPasosGenerar++;
     s[nivel]++;
+    usada[s[nivel]]++;
     //nNodos++;
     if (s[nivel]==0)
         (*bact)+=B[nivel][s[nivel]];
@@ -52,9 +53,9 @@ int generar(int nivel, int s[N],int* bact) {
         (*bact)+=B[nivel][s[nivel]]-B[nivel][s[nivel]-1];
 }
 
-int solucion(int nivel, int s[N]){
+int solucion(int nivel, int s[N], int usada[N]){
     nPasosSolucion++;
-    return (nivel==(N-1) && criterio(nivel,s));
+    return (nivel==(N-1) && criterio(nivel,s,usada));
 }
 
 //Algoritmo de Backtracking
@@ -64,18 +65,22 @@ void backtracking(int s[N]){
     int voa = -999;
     int soa[N] = {valorDefecto,valorDefecto,valorDefecto};
     int bact = 0;
+    int usada[N] = {0,0,0};
 
     while(nivel!=-1){
-        generar(nivel,s,&bact);
-        if (solucion(nivel,s) && (bact>voa)){
+        generar(nivel,s,&bact,usada);
+        if (solucion(nivel,s,usada) && (bact>voa)){
             voa = bact;
             for (int i = 0; i<N; i++) soa[i] = s[i];
             //printf("\nSolucion encontrada! \t"); for (int i = 0; i<N; i++) printf("%d ",s[i]);
         }
-        if (criterio(nivel,s) && (nivel<(N-1)))
-            nivel++;
+        if (criterio(nivel,s,usada)) {
+            if (nivel < (N - 1))
+                nivel++;
+            nNodos++;
+        }
         while (!masHermanos(nivel,s)&&(nivel>=0))
-            retroceder(&nivel,s,&bact);
+            retroceder(&nivel,s,&bact,usada);
 
     }
     for (int i = 0; i<N; i++) s[i] = soa[i];
