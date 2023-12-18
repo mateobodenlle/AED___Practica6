@@ -8,9 +8,12 @@
 //Librerías:
 #include <stdio.h>
 #include <stdlib.h>
-//Constantes y globales
+//Constantes
 #define N 3 //Tamaño de la matriz
 #define valorDefecto (-1)
+
+//Variables globales (contadores)
+int nNodos = 0, nPasosCriterio = 0, nPasosGenerar = 0, nPasosSolucion = 0, nPasosHermanos = 0, nPasosRetroceder = 0;
 
 //Definición de matriz
 typedef int matriz[N][N];
@@ -20,23 +23,28 @@ matriz B = {{11,17,8},
 
 //Implementación de funciones de Backtracking
 int criterio(int nivel, int s[N]) {
+    nPasosCriterio++;
     for (int i = 0; i < nivel; i++)
         if (s[nivel] == s[i]) return 0;
     return 1;
 }
 
 int masHermanos(int nivel, int s[N]) {
+    nPasosHermanos++;
     return s[nivel]<(N-1);
 }
 
 int retroceder(int *nivel, int s[N],int* bact){
+    nPasosRetroceder++;
     (*bact)-=B[*nivel][s[*nivel]];
     s[*nivel]=valorDefecto;
     (*nivel)--;
 }
 
 int generar(int nivel, int s[N],int* bact) {
+    nPasosGenerar++;
     s[nivel]++;
+    nNodos++;
     if (s[nivel]==0)
         (*bact)+=B[nivel][s[nivel]];
     else
@@ -44,6 +52,7 @@ int generar(int nivel, int s[N],int* bact) {
 }
 
 int solucion(int nivel, int s[N]){
+    nPasosSolucion++;
     return (nivel==(N-1) && criterio(nivel,s));
 }
 
@@ -85,6 +94,8 @@ int main() {
     backtracking(s);
     printf("\nSolucion: \t\t");
     for (int i = 0; i<N; i++) printf("%d ",s[i]);
+
+    printf("\nStats: %d %d %d %d %d %d\n", nNodos,nPasosCriterio,nPasosGenerar,nPasosSolucion,nPasosHermanos,nPasosRetroceder);
 
     printf("\n\nFin del programa. Gracias.");
 }
