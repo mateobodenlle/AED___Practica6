@@ -19,7 +19,7 @@ matriz B = {{11,17,8},
             {13,15,16}};
 
 //Implementación de funciones de Backtracking
-short criterio(int nivel, int s[N]) {
+int criterio(int nivel, int s[N]) {
     for (int i = 0; i < nivel; i++)
         if (s[nivel] == s[i]) return 0;
     return 1;
@@ -31,16 +31,16 @@ int masHermanos(int nivel, int s[N]) {
 
 int retroceder(int *nivel, int s[N],int* bact){
     (*bact)-=B[*nivel][s[*nivel]];
-    s[*nivel]=0;
-    (*nivel)-=1;
+    s[*nivel]=valorDefecto;
+    (*nivel)--;
 }
 
-int generar(int nivel, int s[N],int bact) {
+int generar(int nivel, int s[N],int* bact) {
     s[nivel]++;
     if (s[nivel]==0)
-        bact+=B[nivel][s[nivel]];
+        (*bact)+=B[nivel][s[nivel]];
     else
-        bact+=B[nivel][s[nivel]]-B[nivel][s[nivel]-1];
+        (*bact)+=B[nivel][s[nivel]]-B[nivel][s[nivel]-1];
 }
 
 int solucion(int nivel, int s[N]){
@@ -56,11 +56,11 @@ void backtracking(int s[N]){
     int bact = 0;
 
     while(nivel!=-1){
-        generar(nivel,s,bact);
-        if (solucion(nivel,s) /*&& (bact>voa)*/){
+        generar(nivel,s,&bact);
+        if (solucion(nivel,s) && (bact>voa)){
             voa = bact;
             for (int i = 0; i<N; i++) soa[i] = s[i];
-            printf("\nSolucion encontrada! \t"); for (int i = 0; i<N; i++) printf("%d ",s[i]);
+            //printf("\nSolucion encontrada! \t"); for (int i = 0; i<N; i++) printf("%d ",s[i]);
         }
         if (criterio(nivel,s) && (nivel<(N-1)))
             nivel++;
@@ -68,6 +68,7 @@ void backtracking(int s[N]){
             retroceder(&nivel,s,&bact);
 
     }
+    for (int i = 0; i<N; i++) s[i] = soa[i];
 }
 
 //Main
