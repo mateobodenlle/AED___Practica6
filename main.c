@@ -26,6 +26,7 @@ int criterio(int nivel, int s[N]) {
     nPasosCriterio++;
     for (int i = 0; i < nivel; i++)
         if (s[nivel] == s[i]) return 0;
+    nNodos++;
     return 1;
 }
 
@@ -44,7 +45,7 @@ int retroceder(int *nivel, int s[N],int* bact){
 int generar(int nivel, int s[N],int* bact) {
     nPasosGenerar++;
     s[nivel]++;
-    nNodos++;
+    //nNodos++;
     if (s[nivel]==0)
         (*bact)+=B[nivel][s[nivel]];
     else
