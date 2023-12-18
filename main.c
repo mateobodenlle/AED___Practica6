@@ -26,7 +26,6 @@ int criterio(int nivel, int s[N]) {
     nPasosCriterio++;
     for (int i = 0; i < nivel; i++)
         if (s[nivel] == s[i]) return 0;
-    nNodos++;
     return 1;
 }
 
@@ -72,8 +71,11 @@ void backtracking(int s[N]){
             for (int i = 0; i<N; i++) soa[i] = s[i];
             //printf("\nSolucion encontrada! \t"); for (int i = 0; i<N; i++) printf("%d ",s[i]);
         }
-        if (criterio(nivel,s) && (nivel<(N-1)))
-            nivel++;
+        if (criterio(nivel,s)) {
+            if (nivel < (N - 1))
+                nivel++;
+            nNodos++;
+        }
         while (!masHermanos(nivel,s)&&(nivel>=0))
             retroceder(&nivel,s,&bact);
 
