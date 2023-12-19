@@ -37,7 +37,6 @@ matriz B = {{11,17,8},
 int criterio(int nivel, int s[N]) {
     for (int i = 0; i < nivel; i++){
         nPasosCriterio++;
-
         if (s[nivel] == s[i]) return 0;
     }
     return 1;
