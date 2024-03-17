@@ -9,7 +9,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 //Constantes
-#define N 3 //Tamaño de la matriz
+//#define N 3 //Tamaño de la matriz
+#define N 6
 #define valorDefecto (-1)
 
 //Variables globales (contadores)
