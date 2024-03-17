@@ -14,7 +14,7 @@
 #define valorDefecto (-1)
 
 //Variables globales (contadores)
-int nNodos = 0, nPasosCriterio = 0, nPasosGenerar = 0, nPasosSolucion = 0, nPasosHermanos = 0, nPasosRetroceder = 0;
+int nNodos = 1, nPasosCriterio = 0, nPasosGenerar = 0, nPasosSolucion = 0, nPasosHermanos = 0, nPasosRetroceder = 0;
 
 //Definición de matriz
 typedef int matriz[N][N];
