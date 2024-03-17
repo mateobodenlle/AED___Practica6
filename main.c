@@ -108,10 +108,10 @@ int main() {
     }
 
     backtracking(s);
-    printf("\nSolucion: \t\t");
+    printf("\nSolucion: \t");
     for (int i = 0; i<N; i++) printf("%d ",s[i]);
 
-    printf("\nStats: %d %d %d %d %d %d\n", nNodos,nPasosCriterio,nPasosGenerar,nPasosSolucion,nPasosHermanos,nPasosRetroceder);
+    printf("\n    ----- STATS ----- \nnNodos: \t\t%d \nnPasosCriterio: \t%d \nnPasosGenerar: \t\t%d \nnPasosSolucion: \t%d \nnPasosHermanos: \t%d \nnPasosRetroceder: \t%d\n", nNodos,nPasosCriterio,nPasosGenerar,nPasosSolucion,nPasosHermanos,nPasosRetroceder);
 
     printf("\n\nFin del programa. Gracias.");
 }
