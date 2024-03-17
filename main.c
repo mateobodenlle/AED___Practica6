@@ -18,9 +18,15 @@ int nNodos = 0, nPasosCriterio = 0, nPasosGenerar = 0, nPasosSolucion = 0, nPaso
 
 //Definición de matriz
 typedef int matriz[N][N];
-matriz B = {{11,17,8},
+/*matriz B = {{11,17,8},
             {9, 7, 6},
-            {13,15,16}};
+            {13,15,16}};*/
+matriz B = {{11,17,8,16,20,14},
+            {9,7,6,12,15,18},
+            {13,15,16,1,16,18},
+            {21,24,28,17,26,20},
+            {10,14,12,11,15,13},
+            {12,20,19,13,22,17}};
 
 //Implementación de funciones de Backtracking
 int criterio(int nivel, int s[N], int usada[N]) {
