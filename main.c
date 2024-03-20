@@ -94,6 +94,7 @@ void backtracking(int s[N]){
 
     }
     for (int i = 0; i<N; i++) s[i] = soa[i];
+    printf("\nBeneficio final: %d",voa);
 }
 
 //Main
