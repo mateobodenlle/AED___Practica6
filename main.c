@@ -79,7 +79,7 @@ void backtracking(int s[N]){
         if (solucion(nivel,s,usada) && (bact>voa)){
             voa = bact;
             for (int i = 0; i<N; i++) soa[i] = s[i];
-            //printf("\nSolucion encontrada! \t"); for (int i = 0; i<N; i++) printf("%d ",s[i]);
+            //printf("\nSolucion encontrada! con beneficio %d y voa %d  \t",bact,voa); for (int i = 0; i<N; i++) printf("%d ",s[i]);
         }
         if (criterio(nivel,s,usada)) {
             if (nivel < (N - 1))
@@ -91,6 +91,7 @@ void backtracking(int s[N]){
 
     }
     for (int i = 0; i<N; i++) s[i] = soa[i];
+    printf("\nBeneficio final: %d",voa);
 }
 
 //Main
